@@ -9,12 +9,16 @@ CORS(app)
 # Get the default Downloads folder dynamically
 DOWNLOAD_FOLDER = os.path.join(os.path.expanduser("~"), "Downloads")
 
+# Path to the cookies file
+COOKIES_FILE = os.path.join(os.path.dirname(__file__), "cookies.txt")
+
 def download_mp3(video_url):
     """Downloads YouTube video as MP3 into the default Downloads folder."""
     try:
         ydl_opts = {
             'format': 'bestaudio/best',
             'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
+            'cookies': COOKIES_FILE,  # Use cookies.txt
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
